@@ -24,4 +24,13 @@ router.put('/:id', async(req, res) => {
     });
 });
 
+router.delete('/:id', async(req, res) => {
+    await Task.findOneAndRemove(req.params.id);
+    res.json({
+        status: 201
+    });
+});
+
+
+
 module.exports = router;
