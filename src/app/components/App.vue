@@ -25,19 +25,31 @@
     </div>
 </template>
 <script>
+  class Task{
+    constructor(title, description){
+      this.title = title;
+      this.description = description;
+    }
+  }
 export default {
   name: 'App',
   data() {
     return {
-      task: {
-        title: '',
-        description: ''
-      }
+      task: new Task()
     }
   },
   methods: {
     addTask() {
-      console.log(this.task);
+      fetch('/tasks', {
+        method: 'POST',
+        body: JSON.stringify(this.task),
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(data => console.log(data))
     }
   },
 }
